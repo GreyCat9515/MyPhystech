@@ -53,6 +53,7 @@ const namedMiddleware = {
 |
 */
 const serverMiddleware = [
+  'App/Middleware/ServeGZ',
   'Adonis/Middleware/Static',
   'Adonis/Middleware/Cors'
 ]
