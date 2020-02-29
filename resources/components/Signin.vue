@@ -20,7 +20,6 @@
         description="Неверный логин или пароль"
       />
     </form>
-    <a :href="`/signup?${getParams()}`">Регистрация</a>
   </div>
 </template>
 
