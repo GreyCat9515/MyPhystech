@@ -18,7 +18,7 @@
         <a-tab-pane v-if="['admin'].includes($store.state.userrole)" tab="Отзывы" key="1">
           <a-list
             bordered
-            :dataSource="$store.state.nirs[nir.id - 1].feedbacks"
+            :dataSource="$store.state.nirs.find(el => el.id === nir.id).feedbacks"
           >
             <a-list-item slot="renderItem" slot-scope="item, index">
               <a-list-item-meta :description="item.feedback">
@@ -42,7 +42,7 @@
         >
           <div
             v-if="
-              !$store.state.nirs[nir.id - 1].feedbacks.find(
+              !$store.state.nirs.find(el => el.id === nir.id).feedbacks.find(
                 el => el.user_id == $store.state.uid
               )
             "
@@ -111,10 +111,9 @@ export default {
   },
   methods: {
     getRate(id) {
-      id--;
-      const count = this.$store.state.nirs[id].feedbacks.length;
+      const count = this.$store.state.nirs.find(el => el.id === id).feedbacks.length;
       if (count === 0) return 0;
-      const sum = this.$store.state.nirs[id].feedbacks.reduce(
+      const sum = this.$store.state.nirs.find(el => el.id === id).feedbacks.reduce(
         (ac, c) => ac + c.overall_rate,
         0
       );

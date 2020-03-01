@@ -18,7 +18,7 @@
         <a-tab-pane tab="Отзывы" key="1">
           <a-list
             bordered
-            :dataSource="$store.state.professors[professor.id - 1].feedbacks"
+            :dataSource="$store.state.professors.find(el => el.id === professor.id).feedbacks"
           >
             <a-list-item slot="renderItem" slot-scope="item, index">
               <a-list-item-meta :description="item.feedback">
@@ -42,7 +42,7 @@
         >
           <div
             v-if="
-              !$store.state.professors[professor.id - 1].feedbacks.find(
+              !$store.state.professors.find(el => el.id === professor.id).feedbacks.find(
                 el => el.user_id == $store.state.uid
               )
             "
@@ -111,10 +111,9 @@ export default {
   },
   methods: {
     getRate(id) {
-      id--;
-      const count = this.$store.state.professors[id].feedbacks.length;
+      const count = this.$store.state.professors.find(el => el.id === id).feedbacks.length;
       if (count === 0) return 0;
-      const sum = this.$store.state.professors[id].feedbacks.reduce(
+      const sum = this.$store.state.professors.find(el => el.id === id).feedbacks.reduce(
         (ac, c) => ac + c.overall_rate,
         0
       );
