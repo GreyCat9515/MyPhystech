@@ -1,6 +1,6 @@
 <template>
   <div>
-    <form class="form" method="post" :action="`/signin?${getParams()}`">
+    <form class="form" method="post" action="/signin">
       <p class="logtext">Вход</p>
       <a-input name="email" placeholder="Логин" class="field"></a-input>
       <a-input-password
@@ -9,7 +9,6 @@
         class="field"
       ></a-input-password>
       <a-input type="hidden" name="_csrf" :value="$store.state.csrf"></a-input>
-      <a-input type="hidden" name="redirect" :value="getParams()"></a-input>
       <a-button html-type="submit" class="ok">Войти</a-button>
       <a-alert
         class="alert"
@@ -20,7 +19,6 @@
         description="Неверный логин или пароль"
       />
     </form>
-    <a :href="`/signup?${getParams()}`">Регистрация</a>
   </div>
 </template>
 

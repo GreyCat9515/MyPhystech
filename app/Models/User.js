@@ -31,6 +31,9 @@ class User extends Model {
    *
    * @return {Object}
    */
+  courses() {
+    return this.belongsToMany('App/Models/Course').pivotTable('user_course')
+  }
   tokens () {
     return this.hasMany('App/Models/Token')
   }

@@ -7,9 +7,11 @@ async function go(path) {
     attributes[attr.name] = attr.value;
   });
   await Store.dispatch("init", attributes);
-  new Vue({
+  const app = new Vue({
     components: {
-      signin: () => import("../components/Signin")
+      welcome: () => import('../components/Welcome'),
+      signin: () => import("../components/Signin"),
+      notFound: () => import('../components/NotFound'),
     },
     store: Store
   }).$mount("#app");

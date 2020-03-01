@@ -10,6 +10,19 @@ class UserController {
     }
     return response.redirect("/");
   }
+  async signin(ctx) {
+    const { request, response, auth } = ctx
+
+    const { email, password } = request.all();
+    try {
+      await auth.attempt(email, password);
+    } catch (e) {
+      // return view.render("signin", { error: "true" });
+      return this.signinPage(ctx, true)
+    }
+
+    return response.redirect("back");
+  }
 }
 
 module.exports = UserController;

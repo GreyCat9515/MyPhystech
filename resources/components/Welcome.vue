@@ -1,0 +1,145 @@
+<template>
+  <div>
+    <header>
+      <a href="https://codabra.org/" target="_blank" class="logo">
+        <img src="picture/logo3.png" />
+      </a>
+    </header>
+    <main>
+      <aside class="left-side">
+        <a-menu
+          @select="menuHandler"
+          v-model="current_tab"
+          class="left-side-menu"
+          mode="inline"
+        >
+          <a-menu-item key="courses">
+            <a-icon type="user" />
+            <span>Курсы</span>
+          </a-menu-item>
+          <a-menu-item key="professors">
+            <a-icon type="video-camera" />
+            <span>Преподаватели</span>
+          </a-menu-item>
+          <a-menu-item key="nir">
+            <a-icon type="upload" />
+            <span>НИР</span>
+          </a-menu-item>
+          <a-menu-item key="scienceleader">
+            <a-icon type="upload" />
+            <span>Научный руководитель</span>
+          </a-menu-item>
+        </a-menu>
+      </aside>
+      <component :is="current_tab[0]" class="content"></component>
+    </main>
+    <footer>
+      <p class="authority">
+        © 2020 МИРЭА - Российский технологический университет
+      </p>
+    </footer>
+  </div>
+</template>
+
+<script>
+import Vue from "vue";
+
+import { Layout, Menu, Icon } from "ant-design-vue";
+import "ant-design-vue/lib/layout/style/css";
+import "ant-design-vue/lib/menu/style/css";
+import "ant-design-vue/lib/icon/style/css";
+Vue.use(Layout);
+Vue.use(Menu);
+Vue.use(Icon);
+
+export default {
+  components: {
+    courses: () => import("./Courses"),
+    professors: () => import("./Professors"),
+    nir: () => import("./NIR"),
+    scienceleader: () => import("./Scienceleader")
+  },
+  mounted() {
+    window.onpopstate = () => {
+      this.current_tab = location.hash ? [location.hash.slice(1)] : ['courses'];
+    };
+    
+  },
+  data() {
+    return {
+      current_tab: location.hash ? [location.hash.slice(1)] : ['courses'],
+      collapsed: false
+    };
+    
+  },
+  methods: {
+    menuHandler({ key }) {
+      history.pushState(null, null, `#${key}`);
+    }
+  }
+};
+</script>
+
+<style scoped>
+header {
+  display: flex;
+  align-items: center;
+  height: 150px;
+  background: #1b72ba;
+  box-shadow: 0px -1px 10px 1px #2c4690 inset;
+}
+.logo {
+  margin-left: 50px;
+}
+main {
+  display: flex;
+  min-height: 1000px;
+}
+.left-side {
+  flex-shrink: 0;
+  background: #eeeeee;
+  box-shadow: -10px 0px 10px -9px #ddd inset;
+  width: 20%;
+}
+.left-side-menu {
+  background: #eeeeee;
+  box-shadow: -10px 0px 10px -9px #ddd inset !important;
+}
+.ant-menu-item-selected {
+  background: #e1e9ed !important;
+}
+
+.content {
+  padding: 30px;
+  flex-grow: 1;
+}
+.picture {
+  border-radius: 5px;
+  width: 70%;
+}
+.teachers {
+  display: flex;
+  flex-wrap: wrap;
+}
+.teacher {
+  width: 30%;
+  margin: 20px;
+}
+footer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-end;
+  height: 200px;
+  box-shadow: 0px 1px 10px 0px #252525 inset;
+  background: #333333;
+}
+.footer-picture {
+  margin-left: 20px;
+  height: 30%;
+}
+.authority {
+  color: white;
+  align-self: center;
+}
+</style>

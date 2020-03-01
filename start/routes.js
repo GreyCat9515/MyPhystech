@@ -16,5 +16,10 @@
 /** @type {typeof import('@adonisjs/framework/src/Route/Manager')} */
 const Route = use('Route')
 
-Route.on('/').render('welcome')
+Route.on('/').render('welcome').middleware('auth')
 Route.get('/signin', 'UserController.signinPage')
+Route.post('/signin', 'UserController.signin')
+
+Route.get('/courses', 'EntityController.courses').middleware('auth')
+Route.get('/my-courses', 'EntityController.mycourses').middleware('auth')
+Route.post('/feedback-submit', 'EntityController.feedbacksubmit').middleware('auth')
