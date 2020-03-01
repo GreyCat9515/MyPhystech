@@ -4,8 +4,11 @@
 const Model = use('Model')
 
 class Scienceleader extends Model {
+    static get table () {
+        return 'science_leaders'
+      }
     feedbacks() {
-        return this.hasMany('App/Models/ScienceleaderFeedback')
+        return this.hasMany('App/Models/ScienceleaderFeedback', 'id', 'science_leader_id')
     }
 }
 

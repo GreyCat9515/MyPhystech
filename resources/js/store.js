@@ -41,6 +41,13 @@ export default new Vuex.Store({
 
     courses: [],
     mycourses: [],
+    professors: [],
+    myprofessors: [],
+    nirs: [],
+    mynirs: [],
+    scienceleaders: [],
+    myscienceleaders: [],
+
     loading: false
   },
   mutations: {
@@ -62,15 +69,57 @@ export default new Vuex.Store({
     setCSRF(state, csrf) {
       state.csrf = csrf;
     },
+
+
+
     setCourses(state, courses) {
       state.courses = courses;
     },
     setMyCourses(state, mycourses) {
       state.mycourses = mycourses;
     },
-    addFeedback(state, { course, feedback }) {
-      state.courses[course-1].feedbacks.push(feedback);
+    addCourseFeedback(state, { id, feedback }) {
+      state.courses[id-1].feedbacks.push(feedback);
     },
+
+
+
+    setProfessors(state, professors) {
+      state.professors = professors;
+    },
+    setMyProfessors(state, myprofessors) {
+      state.myprofessors = myprofessors;
+    },
+    addProfessorFeedback(state, { id, feedback }) {
+      state.professors[id-1].feedbacks.push(feedback);
+    },
+    
+
+
+    setNirs(state, nirs) {
+      state.nirs = nirs;
+    },
+    setMyNirs(state, mynirs) {
+      state.mynirs = mynirs;
+    },
+    addNirFeedback(state, { id, feedback }) {
+      state.nirs[id-1].feedbacks.push(feedback);
+    },
+
+
+
+    setScienceleaders(state, scienceleaders) {
+      state.scienceleaders = scienceleaders;
+    },
+    setMyScienceleaders(state, myscienceleaders) {
+      state.myscienceleaders = myscienceleaders;
+    },
+    addScienceleaderFeedback(state, { id, feedback }) {
+      state.scienceleaders[id-1].feedbacks.push(feedback);
+    },
+
+
+
     setLoading(state, loading) {
       state.loading = loading;
     }
@@ -98,6 +147,8 @@ export default new Vuex.Store({
     async logout() {
       await axios.post("/logout");
     },
+
+
     async fetchCourses({ commit }) {
       commit("setLoading", true);
       const res = await axios.get("/courses");
@@ -110,11 +161,93 @@ export default new Vuex.Store({
       commit("setMyCourses", res.data);
       commit("setLoading", false);
     },
-    async feedbackSubmit({ commit, state }, params) {
-      const res = await axios.post("/feedback-submit", params);
+    async сourseFeedback({ commit, state }, params) {
+      const res = await axios.post("/course-feedback", params);
       if (res.data) {
-        commit("addFeedback", {
-          course: params.course_id,
+        commit("addCourseFeedback", {
+          id: params.id,
+          feedback: {
+            user_id: state.uid,
+            overall_rate: params.overall_rate,
+            feedback: params.feedback
+          }
+        });
+      }
+    },
+
+
+    async fetchProfessors({ commit }) {
+      commit("setLoading", true);
+      const res = await axios.get("/professors");
+      commit("setProfessors", res.data);
+      commit("setLoading", false);
+    },
+    async fetchMyProfessors({ commit }) {
+      commit("setLoading", true);
+      const res = await axios.get("/my-professors");
+      commit("setMyProfessors", res.data);
+      commit("setLoading", false);
+    },
+    async professorFeedback({ commit, state }, params) {
+      const res = await axios.post("/professor-feedback", params);
+      if (res.data) {
+        commit("addProfessorFeedback", {
+          id: params.id,
+          feedback: {
+            user_id: state.uid,
+            overall_rate: params.overall_rate,
+            feedback: params.feedback
+          }
+        });
+      }
+    },
+
+
+    async fetchNirs({ commit }) {
+      commit("setLoading", true);
+      const res = await axios.get("/nirs");
+      commit("setNirs", res.data);
+      commit("setLoading", false);
+    },
+    async fetchMyNirs({ commit }) {
+      commit("setLoading", true);
+      const res = await axios.get("/my-nirs");
+      commit("setMyNirs", res.data);
+      commit("setLoading", false);
+    },
+    async nirFeedback({ commit, state }, params) {
+      console.log(params.id)
+      const res = await axios.post("/nir-feedback", params);
+      if (res.data) {
+        commit("addNirFeedback", {
+          id: params.id,
+          feedback: {
+            user_id: state.uid,
+            overall_rate: params.overall_rate,
+            feedback: params.feedback
+          }
+        });
+      }
+    },
+
+
+    async fetchScienceleaders({ commit }) {
+      commit("setLoading", true);
+      const res = await axios.get("/scienceleaders");
+      commit("setScienceleaders", res.data);
+      commit("setLoading", false);
+    },
+    async fetchMyScienceleaders({ commit }) {
+      commit("setLoading", true);
+      const res = await axios.get("/my-scienceleaders");
+      commit("setMyScienceleaders", res.data);
+      commit("setLoading", false);
+    },
+    async scienceleaderFeedback({ commit, state }, params) {
+      const res = await axios.post("/scienceleader-feedback", params);
+      if (res.data) {
+        commit("addScienceleaderFeedback", {
+          id: params.id,
           feedback: {
             user_id: state.uid,
             overall_rate: params.overall_rate,

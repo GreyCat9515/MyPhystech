@@ -10,7 +10,6 @@ class ScienceLeaderSchema extends Schema {
       table.string('name')
       table.string('surname')
       table.string('desc')
-      table.string('picture')
       table.timestamps()
     })
   }

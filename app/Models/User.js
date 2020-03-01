@@ -34,6 +34,15 @@ class User extends Model {
   courses() {
     return this.belongsToMany('App/Models/Course').pivotTable('user_course')
   }
+  professors() {
+    return this.belongsToMany('App/Models/Professor').pivotTable('user_professor')
+  }
+  nirs() {
+    return this.belongsToMany('App/Models/Nir').pivotTable('user_nir')
+  }
+  scienceleaders() {
+    return this.belongsToMany('App/Models/Scienceleader', 'id', 'science_leader_id').pivotTable('user_science_leader')
+  }
   tokens () {
     return this.hasMany('App/Models/Token')
   }

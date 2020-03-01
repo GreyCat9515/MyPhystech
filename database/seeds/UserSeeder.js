@@ -20,7 +20,7 @@ class UserSeeder {
       name: 'Иван',
       surname: 'Иванов',
       email: 'admin@admin.admin',
-      role: 0,
+      role: 'admin',
       password: '$2a$10$I7w5q4Qrh9ySyp8gO0.MU./5i7HdqDfeCiX.oLGnfZcahQAVrkKx6',
     })
     await Database.table('users')
@@ -28,7 +28,7 @@ class UserSeeder {
       name: 'Валерий',
       surname: 'Юрьев',
       email: 'user@user.user',
-      role: 2,
+      role: 'student',
       password: '$2a$10$McUBFoGWi7FYvBqh3GNGfu.E/aPFdiu9yVr5cWYW9N2qM2RaqW19O',
     })
     await Database.table('users')

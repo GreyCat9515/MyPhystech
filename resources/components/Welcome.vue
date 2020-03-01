@@ -1,15 +1,15 @@
 <template>
   <div>
     <header>
-      <a href="https://codabra.org/" target="_blank" class="logo">
-        <img src="picture/logo3.png" />
+      <a href="#" class="logo">
+        <img src="picture/logo.png" />
       </a>
     </header>
     <main>
       <aside class="left-side">
         <a-menu
+          :defaultSelectedKeys="[current_tab]"
           @select="menuHandler"
-          v-model="current_tab"
           class="left-side-menu"
           mode="inline"
         >
@@ -21,17 +21,21 @@
             <a-icon type="video-camera" />
             <span>Преподаватели</span>
           </a-menu-item>
-          <a-menu-item key="nir">
+          <a-menu-item v-if="!['professor'].includes($store.state.userrole)" key="nir">
             <a-icon type="upload" />
             <span>НИР</span>
           </a-menu-item>
-          <a-menu-item key="scienceleader">
+          <a-menu-item v-if="!['professor'].includes($store.state.userrole)" key="scienceleader">
             <a-icon type="upload" />
             <span>Научный руководитель</span>
           </a-menu-item>
+          <a-menu-item key="logout">
+            <a-icon type="logout" />
+            <span>Выход</span>
+          </a-menu-item>
         </a-menu>
       </aside>
-      <component :is="current_tab[0]" class="content"></component>
+      <component :is="current_tab" class="content"></component>
     </main>
     <footer>
       <p class="authority">
@@ -61,19 +65,22 @@ export default {
   },
   mounted() {
     window.onpopstate = () => {
-      this.current_tab = location.hash ? [location.hash.slice(1)] : ['courses'];
+      this.current_tab = location.hash ? location.hash.slice(1) : "courses";
     };
-    
   },
   data() {
     return {
-      current_tab: location.hash ? [location.hash.slice(1)] : ['courses'],
+      current_tab: location.hash ? location.hash.slice(1) : "courses",
       collapsed: false
     };
-    
   },
   methods: {
-    menuHandler({ key }) {
+    async menuHandler({ key }) {
+      if (key === "logout") {
+        await this.$store.dispatch("logout");
+        location="/signin"
+      }
+      this.current_tab = key;
       history.pushState(null, null, `#${key}`);
     }
   }
@@ -89,7 +96,10 @@ header {
   box-shadow: 0px -1px 10px 1px #2c4690 inset;
 }
 .logo {
-  margin-left: 50px;
+  margin-left: 70px;
+}
+.logo img {
+  width: 70px;
 }
 main {
   display: flex;
