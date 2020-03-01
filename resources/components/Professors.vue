@@ -1,10 +1,10 @@
 <template>
   <div>
     <a-tabs>
-      <a-tab-pane tab="Все курсы" key="1">
+      <a-tab-pane tab="Все преподаватели" key="1">
         <professor-list :data="$store.state.professors" />
       </a-tab-pane>
-      <a-tab-pane v-if="['student'].includes($store.state.userrole)" tab="Мои курсы" key="2">
+      <a-tab-pane v-if="['student'].includes($store.state.userrole)" tab="Мои преподаватели" key="2">
         <professor-list
           :data="
             $store.state.professors.filter(professor =>

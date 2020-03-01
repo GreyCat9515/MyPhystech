@@ -9,8 +9,7 @@ class ProfessorSchema extends Schema {
       table.increments()
       table.string('name')
       table.string('surname')
-      table.string('desc')
-      table.string('picture')
+      table.text('desc')
       table.timestamps()
     })
   }

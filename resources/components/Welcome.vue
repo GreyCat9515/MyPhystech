@@ -14,19 +14,19 @@
           mode="inline"
         >
           <a-menu-item key="courses">
-            <a-icon type="user" />
+            <a-icon type="read" />
             <span>Курсы</span>
           </a-menu-item>
           <a-menu-item key="professors">
-            <a-icon type="video-camera" />
+            <a-icon type="user" />
             <span>Преподаватели</span>
           </a-menu-item>
           <a-menu-item v-if="!['professor'].includes($store.state.userrole)" key="nir">
-            <a-icon type="upload" />
+            <a-icon type="file-done" />
             <span>НИР</span>
           </a-menu-item>
           <a-menu-item v-if="!['professor'].includes($store.state.userrole)" key="scienceleader">
-            <a-icon type="upload" />
+            <a-icon type="solution" />
             <span>Научный руководитель</span>
           </a-menu-item>
           <a-menu-item key="logout">

@@ -1,10 +1,10 @@
 <template>
   <div>
     <a-tabs>
-      <a-tab-pane v-if="['admin'].includes($store.state.userrole)" tab="Все курсы" key="1">
+      <a-tab-pane v-if="['admin'].includes($store.state.userrole)" tab="Все научные руководители" key="1">
         <scienceleader-list :data="$store.state.scienceleaders" />
       </a-tab-pane>
-      <a-tab-pane v-if="['student'].includes($store.state.userrole)" tab="Мои курсы" key="2">
+      <a-tab-pane v-if="['student'].includes($store.state.userrole)" tab="Мои научные руководители" key="2">
         <scienceleader-list
           :data="
             $store.state.scienceleaders.filter(scienceleader =>

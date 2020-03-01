@@ -9,7 +9,7 @@ class ScienceLeaderSchema extends Schema {
       table.increments()
       table.string('name')
       table.string('surname')
-      table.string('desc')
+      table.text('desc')
       table.timestamps()
     })
   }

@@ -8,7 +8,7 @@ class NirSchema extends Schema {
     this.create('nirs', (table) => {
       table.increments()
       table.string('theme')
-      table.string('desc')
+      table.text('desc')
       table.timestamps()
     })
   }

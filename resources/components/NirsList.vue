@@ -47,7 +47,7 @@
               )
             "
           >
-            <div>Интресность материала:</div>
+            <div>Интресность темы:</div>
             <a-rate allowHalf v-model="interest_value" />
             <span class="ant-rate-text">{{
               interest[Math.round(interest_value - 1)]
@@ -106,7 +106,7 @@ export default {
   data() {
     return {
       interest_value: 0,
-      interest: ["Ужасный", "Плохой", "Нормальный", "Хороший", "Отличный"]
+      interest: ["Ужасная", "Плохая", "Нормальная", "Хорошая", "Отличная"]
     };
   },
   methods: {

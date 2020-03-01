@@ -47,7 +47,7 @@
               )
             "
           >
-            <div>Интресность материала:</div>
+            <div>Уронь квалификации:</div>
             <a-rate allowHalf v-model="interest_value" />
             <span class="ant-rate-text">{{
               interest[Math.round(interest_value - 1)]
