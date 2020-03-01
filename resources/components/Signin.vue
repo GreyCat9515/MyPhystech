@@ -64,4 +64,5 @@ export default {
 .alert {
   margin-top: 20px;
 }
+
 </style>
