@@ -3,22 +3,31 @@
     <a-collapse-panel
       v-for="scienceleader in data"
       :header="`${scienceleader.surname} ${scienceleader.name}`"
-      :extra="['admin'].includes($store.state.userrole) ?
-        $createElement('a-rate', {
-          props: {
-            disabled: true,
-            defaultValue: getRate(scienceleader.id),
-            allowHalf: true
-          }
-        }) : ''
+      :extra="
+        ['admin'].includes($store.state.userrole)
+          ? $createElement('a-rate', {
+              props: {
+                disabled: true,
+                defaultValue: getRate(scienceleader.id),
+                allowHalf: true
+              }
+            })
+          : ''
       "
       :key="scienceleader.id"
       ><div v-html="scienceleader.desc"></div>
       <a-tabs>
-        <a-tab-pane v-if="['admin'].includes($store.state.userrole)" tab="Отзывы" key="1">
+        <a-tab-pane
+          v-if="['admin'].includes($store.state.userrole)"
+          tab="Отзывы"
+          key="1"
+        >
           <a-list
             bordered
-            :dataSource="$store.state.scienceleaders.find(el => el.id === scienceleader.id).feedbacks"
+            :dataSource="
+              $store.state.scienceleaders.find(el => el.id === scienceleader.id)
+                .feedbacks
+            "
           >
             <a-list-item slot="renderItem" slot-scope="item, index">
               <a-list-item-meta :description="item.feedback">
@@ -35,16 +44,18 @@
           </a-list>
         </a-tab-pane>
         <a-tab-pane
-          v-if="$store.state.myscienceleaders.includes(scienceleader.id) &&
-          ['student'].includes($store.state.userrole)"
+          v-if="
+            $store.state.myscienceleaders.includes(scienceleader.id) &&
+              ['student'].includes($store.state.userrole)
+          "
           tab="Оставить отзыв"
           key="2"
         >
           <div
             v-if="
-              !$store.state.scienceleaders.find(el => el.id === scienceleader.id).feedbacks.find(
-                el => el.user_id == $store.state.uid
-              )
+              !$store.state.scienceleaders
+                .find(el => el.id === scienceleader.id)
+                .feedbacks.find(el => el.user_id == $store.state.uid)
             "
           >
             <div>Уровень квалификации:</div>
@@ -111,12 +122,12 @@ export default {
   },
   methods: {
     getRate(id) {
-      const count = this.$store.state.scienceleaders.find(el => el.id === id).feedbacks.length;
+      const count = this.$store.state.scienceleaders.find(el => el.id === id)
+        .feedbacks.length;
       if (count === 0) return 0;
-      const sum = this.$store.state.scienceleaders.find(el => el.id === id).feedbacks.reduce(
-        (ac, c) => ac + c.overall_rate,
-        0
-      );
+      const sum = this.$store.state.scienceleaders
+        .find(el => el.id === id)
+        .feedbacks.reduce((ac, c) => ac + c.overall_rate, 0);
       return Math.round(sum / count) / 2;
     },
     async feedbackSubmit(id) {

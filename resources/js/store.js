@@ -79,7 +79,7 @@ export default new Vuex.Store({
       state.mycourses = mycourses;
     },
     addCourseFeedback(state, { id, feedback }) {
-      state.courses[id-1].feedbacks.push(feedback);
+      state.courses.find(el => el.id == id).feedbacks.push(feedback);
     },
 
 
@@ -91,7 +91,7 @@ export default new Vuex.Store({
       state.myprofessors = myprofessors;
     },
     addProfessorFeedback(state, { id, feedback }) {
-      state.professors[id-1].feedbacks.push(feedback);
+      state.professors.find(el => el.id == id).feedbacks.push(feedback);
     },
     
 
@@ -103,7 +103,7 @@ export default new Vuex.Store({
       state.mynirs = mynirs;
     },
     addNirFeedback(state, { id, feedback }) {
-      state.nirs[id-1].feedbacks.push(feedback);
+      state.nirs.find(el => el.id == id).feedbacks.push(feedback);
     },
 
 
@@ -115,7 +115,8 @@ export default new Vuex.Store({
       state.myscienceleaders = myscienceleaders;
     },
     addScienceleaderFeedback(state, { id, feedback }) {
-      state.scienceleaders[id-1].feedbacks.push(feedback);
+      console.log(id)
+      state.scienceleaders.find(el => el.id == id).feedbacks.push(feedback);
     },
 
 
